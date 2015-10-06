@@ -34,7 +34,7 @@ class FullName: NSObject {
 class Tests: XCTestCase {
   
   // MARK: Tests
-
+  
   func testCombinedComparatorFunctions() {
     let testArray = (0..<1000).map { _ in randomPoint() }
     let testee = testArray.sort(sortingBy { $0.x } <|> sortingBy{ $0.y })
