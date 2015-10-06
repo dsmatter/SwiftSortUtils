@@ -1,0 +1,14 @@
+PODS:
+  - SwiftSortUtils (0.1.0)
+
+DEPENDENCIES:
+  - SwiftSortUtils (from `../`)
+
+EXTERNAL SOURCES:
+  SwiftSortUtils:
+    :path: ../
+
+SPEC CHECKSUMS:
+  SwiftSortUtils: 09106dc08daf2cf85d245bda03e521e14e2046e2
+
+COCOAPODS: 0.38.2
