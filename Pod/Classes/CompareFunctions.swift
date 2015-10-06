@@ -27,7 +27,7 @@ public func combineCompareFunctions<T>(f: (T, T) -> Bool, g: (T, T) -> Bool) -> 
 /**
 *  Infix operator for combineCompareFunctions
 */
-infix operator <|> {}
+infix operator <|> { associativity left }
 public func <|><T>(f: (T, T) -> Bool, g: (T, T) -> Bool) -> ((T, T) -> Bool) {
   return combineCompareFunctions(f, g: g)
 }
