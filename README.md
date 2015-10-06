@@ -12,11 +12,16 @@ This library takes a shot at making sorting in Swift more pleasant. It also allo
 
 ```swift
 let somePeople: [Person] = ...
-// Sort by an comparable attribute
+
+// Sort by a comparable attribute
 let ... = somePeople.sort(sortingBy {$0.firstname })
 
 // Sort by multiple attributes
-let ... = somePeople.sort(sortingBy { $0.age } <|> sortingBy { $0.lastname } <|> sortingBy { $0.firstname })
+let ... = somePeople.sort(
+  sortingBy { $0.age } <|>
+  sortingBy { $0.lastname } <|>
+  sortingBy { $0.firstname }
+)
 
 // Append any comparator function
 let ... = somePeople.sort(sortingBy {$0.age } <|> { (p1, p2) in
@@ -31,7 +36,10 @@ let ageSortDescriptor = NSSortDescriptor(key: "age", ascending: true)
 let ... = somePeople.sort(ageSortDescriptor.toCompareFunction())
 
 // Even Use multiple NSSortDescriptors
-let nameSortDescriptors = [NSSortDescriptor(key: "lastname", ascending: true), NSSortDescriptor(key: "firstname", ascending: true)]
+let nameSortDescriptors = [
+  NSSortDescriptor(key: "lastname", ascending: true),
+  NSSortDescriptor(key: "firstname", ascending: true)
+]
 let ... = somePeople.sort(nameSortDescriptors.toCompareFunction())
 ```
 
