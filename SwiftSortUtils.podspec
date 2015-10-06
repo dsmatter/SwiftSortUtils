@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = "SwiftSortUtils"
-  s.version          = "0.1.0"
-  s.summary          = "A short description of SwiftSortUtils."
+  s.version          = "0.1.1"
+  s.summary          = "Useful functions and extensions for sorting in Swift"
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -17,13 +17,15 @@ Pod::Spec.new do |s|
 #   * Write the description between the DESC delimiters below.
 #   * Finally, don't worry about the indent, CocoaPods strips it!  
   s.description      = <<-DESC
+                       This library takes a shot at making sorting in Swift more pleasant.
+                       It also allows you to reuse your old NSSortDescriptor instances in Swift.
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/SwiftSortUtils"
+  s.homepage         = "https://github.com/dsmatter/SwiftSortUtils"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Daniel Strittmatter" => "daniel@smattr.de" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/SwiftSortUtils.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/dsmatter/SwiftSortUtils.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
