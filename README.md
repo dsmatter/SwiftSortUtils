@@ -14,7 +14,7 @@ This library takes a shot at making sorting in Swift more pleasant. It also allo
 let somePeople: [Person] = ...
 
 // Sort by a comparable attribute
-let ... = somePeople.sort(sortingBy {$0.firstname })
+let ... = somePeople.sort(sortingBy { $0.firstname })
 
 // Sort by multiple attributes
 let ... = somePeople.sort(
@@ -24,7 +24,7 @@ let ... = somePeople.sort(
 )
 
 // Append any comparator function
-let ... = somePeople.sort(sortingBy {$0.age } <|> { (p1, p2) in
+let ... = somePeople.sort(sortingBy { $0.age } <|> { (p1, p2) in
   if p1.wearsGlasses() && !p2.wearsGlasses() {
     return true
   }
