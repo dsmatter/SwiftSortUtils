@@ -1,5 +1,6 @@
 # SwiftSortUtils
 
+[![CI Status](https://img.shields.io/travis/dsmatter/SwiftSortUtils.svg?style=flat)](https://travis-ci.org/dsmatter/SwiftSortUtils.svg?branch=master)
 [![Version](https://img.shields.io/cocoapods/v/SwiftSortUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftSortUtils)
 [![License](https://img.shields.io/cocoapods/l/SwiftSortUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftSortUtils)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftSortUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftSortUtils)
