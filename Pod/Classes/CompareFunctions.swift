@@ -34,6 +34,28 @@ public func <|><T>(f: (T, T) -> Bool, g: (T, T) -> Bool) -> ((T, T) -> Bool) {
 
 /**
 Generates a compare function (suitable for Swift Arrays' sort methods)
+using the provided transformation function f.
+Elements are sorted by the result of applying each element to f.
+ 
+If the ordering parameter indicates a descending order the resulting
+compare function is reversed.
+
+- parameter ordering: the desired element ordering
+- parameter f: the transformation function
+
+- returns: the generated compare function
+*/
+public func sortingBy<T, C: Comparable>(ordering: Ordering, f: T -> C) -> ((T, T) -> Bool) {
+    switch ordering {
+    case .Ascending:
+        return sortingBy(f)
+    case .Descending:
+        return reverseComparator(sortingBy(f))
+    }
+}
+
+/**
+Generates a compare function (suitable for Swift Arrays' sort methods)
 using the provided transformation function f. Elements are sorted by
 the result of applying each element to f.
 
@@ -48,6 +70,19 @@ public func sortingBy<T, C: Comparable>(f: T -> C) -> ((T, T) -> Bool) {
 }
 
 /**
+ Reverses a given compare function.
+ 
+ - parameter f: the compare function
+ 
+ - returns: the reversed compare function
+ */
+public func reverseComparator<T>(f: (T, T) -> Bool) -> (T, T) -> Bool {
+    return { (a, b) in
+        f(b, a)
+    }
+}
+
+/**
 The identity element in the monoid of compare functions.
 It always returns false, i.e. treats all elements as equal.
 
@@ -55,4 +90,9 @@ It always returns false, i.e. treats all elements as equal.
 */
 func identityCompareFunction<T>() -> ((T, T) -> Bool) {
   return { a, b in false }
+}
+
+public enum Ordering {
+    case Ascending
+    case Descending
 }

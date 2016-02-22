@@ -32,6 +32,13 @@ let ... = somePeople.sort(sortingBy { $0.age } <|> { (p1, p2) in
   return false
 })
 
+// Reverse compare functions
+let ... = somePeople.sort(
+  sortingBy(.Descending) { $0.age } <|>
+  sortingBy { $0.lastname } <|>
+  reverseComparator(sortingBy { $0.firstname }) // reverse any compare function
+)
+
 // Use an NSSortDescriptor
 let ageSortDescriptor = NSSortDescriptor(key: "age", ascending: true)
 let ... = somePeople.sort(ageSortDescriptor.toCompareFunction())

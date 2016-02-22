@@ -50,6 +50,21 @@ class Tests: XCTestCase {
     }
   }
   
+  func testCombinedReversedComparatorFunctions() {
+    let testArray = (0..<1000).map { _ in randomPoint() }
+    let testee = testArray.sort(sortingBy(.Descending) { $0.x } <|> sortingBy(.Descending) { $0.y })
+    
+    for i in 1..<testee.count {
+      let a = testee[i - 1]
+      let b = testee[i]
+      
+      XCTAssert(a.x >= b.x)
+      if (a.x == b.x) {
+        XCTAssert(a.y >= b.y)
+      }
+    }
+  }
+  
   func testSortDescriptorCompareFunction() {
     let testArray = (0..<1000).map { _ in randomName() }
     
