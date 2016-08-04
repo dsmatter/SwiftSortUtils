@@ -25,12 +25,10 @@ let ... = somePeople.sort(
 )
 
 // Append any comparator function
-let ... = somePeople.sort(sortingBy { $0.age } <|> { (p1, p2) in
-  if p1.wearsGlasses() && !p2.wearsGlasses() {
-    return true
-  }
-  return false
-})
+let ... = somePeople.sort(
+  sortingBy { $0.age } <|>
+  { (p1, p2) in p1.wearsGlasses() && !p2.wearsGlasses() }
+)
 
 // Reverse compare functions
 let ... = somePeople.sort(
