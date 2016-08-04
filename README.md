@@ -59,12 +59,18 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
+### CocoaPods
+
 SwiftSortUtils is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod "SwiftSortUtils"
 ```
+
+### Manually
+
+Download the files in [`Pod/Classes`](https://github.com/dsmatter/SwiftSortUtils/tree/master/Pod/Classes) and drop them into your project.
 
 ## Author
 
