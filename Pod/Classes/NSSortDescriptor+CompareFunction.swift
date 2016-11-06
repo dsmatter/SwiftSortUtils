@@ -18,13 +18,13 @@ public extension NSSortDescriptor {
   */
   func toCompareFunction<T: AnyObject>() -> ((T, T) -> Bool) {
     return { (a, b) in
-      self.compareObject(a, toObject: b) == NSComparisonResult.OrderedAscending
+      self.compare(a, to: b) == ComparisonResult.orderedAscending
     }
   }
   
 }
 
-public extension SequenceType where Self.Generator.Element == NSSortDescriptor {
+public extension Sequence where Self.Iterator.Element == NSSortDescriptor {
   
   /**
   Generates a compare function (suitable for Swift Arrays' sort methods)
@@ -34,7 +34,7 @@ public extension SequenceType where Self.Generator.Element == NSSortDescriptor {
   */
   func toCompareFunction<T: AnyObject>() -> ((T, T) -> Bool) {
     let compareFunctions: [(T, T) -> Bool] = map { a in a.toCompareFunction() }
-    return compareFunctions.reduce(identityCompareFunction(), combine: combineCompareFunctions)
+    return compareFunctions.reduce(identityCompareFunction(), combineCompareFunctions)
   }
   
 }
