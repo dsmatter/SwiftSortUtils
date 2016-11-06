@@ -5,6 +5,17 @@
 [![License](https://img.shields.io/cocoapods/l/SwiftSortUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftSortUtils)
 [![Platform](https://img.shields.io/cocoapods/p/SwiftSortUtils.svg?style=flat)](http://cocoapods.org/pods/SwiftSortUtils)
 
+## Swift 3
+
+The Swift 3 version of this library is maintained in the [swift-3 branch](https://github.com/dsmatter/SwiftSortUtils/tree/swift-3).
+To use it with cocoapods put the following line into your Podfile:
+
+```ruby
+pod "SwiftSortUtils", :git => 'https://github.com/dsmatter/SwiftSortUtils', :branch => 'swift-3'
+```
+
+The master branch as well as the regular releases still contain Swift 2.3 compatible source files.
+
 ## Motivation
 
 This library takes a shot at making sorting in Swift more pleasant. It also allows you to reuse your old `NSSortDescriptor` instances in Swift.
