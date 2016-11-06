@@ -16,4 +16,5 @@ install:
 
 script:
 # - set -o pipefail && xcodebuild test -workspace Example/SwiftSortUtils.xcworkspace -scheme SwiftSortUtils -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- pod --version
 - pod lib lint
