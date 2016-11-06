@@ -27,7 +27,11 @@ public func combineCompareFunctions<T>(_ f: @escaping (T, T) -> Bool, _ g: @esca
 /**
 *  Infix operator for combineCompareFunctions
 */
-infix operator <|> { associativity left }
+precedencegroup CompareFunctionCompositionPrecedence {
+    lowerThan: AssignmentPrecedence
+    associativity: left
+}
+infix operator <|>: CompareFunctionCompositionPrecedence
 public func <|><T>(f: @escaping (T, T) -> Bool, g: @escaping (T, T) -> Bool) -> ((T, T) -> Bool) {
   return combineCompareFunctions(f, g)
 }
