@@ -8,7 +8,7 @@ function as second-order comparison.
 
 - returns: composed compare function
 */
-public func combineCompareFunctions<T>(f: (T, T) -> Bool, g: (T, T) -> Bool) -> ((T, T) -> Bool) {
+public func combineCompareFunctions<T>(_ f: @escaping (T, T) -> Bool, _ g: @escaping (T, T) -> Bool) -> ((T, T) -> Bool) {
   return { (a, b) in
     let isLesser = f(a, b)
     if isLesser {
@@ -27,9 +27,13 @@ public func combineCompareFunctions<T>(f: (T, T) -> Bool, g: (T, T) -> Bool) -> 
 /**
 *  Infix operator for combineCompareFunctions
 */
-infix operator <|> { associativity left }
-public func <|><T>(f: (T, T) -> Bool, g: (T, T) -> Bool) -> ((T, T) -> Bool) {
-  return combineCompareFunctions(f, g: g)
+precedencegroup CompareFunctionCompositionPrecedence {
+    lowerThan: AssignmentPrecedence
+    associativity: left
+}
+infix operator <|>: CompareFunctionCompositionPrecedence
+public func <|><T>(f: @escaping (T, T) -> Bool, g: @escaping (T, T) -> Bool) -> ((T, T) -> Bool) {
+  return combineCompareFunctions(f, g)
 }
 
 /**
@@ -45,11 +49,11 @@ compare function is reversed.
 
 - returns: the generated compare function
 */
-public func sortingBy<T, C: Comparable>(ordering: Ordering, f: T -> C) -> ((T, T) -> Bool) {
+public func sortingBy<T, C: Comparable>(_ ordering: Ordering, f: @escaping (T) -> C) -> ((T, T) -> Bool) {
     switch ordering {
-    case .Ascending:
+    case .ascending:
         return sortingBy(f)
-    case .Descending:
+    case .descending:
         return reverseComparator(sortingBy(f))
     }
 }
@@ -63,7 +67,7 @@ the result of applying each element to f.
 
 - returns: the generated compare function
 */
-public func sortingBy<T, C: Comparable>(f: T -> C) -> ((T, T) -> Bool) {
+public func sortingBy<T, C: Comparable>(_ f: @escaping (T) -> C) -> ((T, T) -> Bool) {
   return { a, b in
     f(a) < f(b)
   }
@@ -76,7 +80,7 @@ public func sortingBy<T, C: Comparable>(f: T -> C) -> ((T, T) -> Bool) {
  
  - returns: the reversed compare function
  */
-public func reverseComparator<T>(f: (T, T) -> Bool) -> (T, T) -> Bool {
+public func reverseComparator<T>(_ f: @escaping (T, T) -> Bool) -> (T, T) -> Bool {
     return { (a, b) in
         f(b, a)
     }
@@ -93,6 +97,6 @@ func identityCompareFunction<T>() -> ((T, T) -> Bool) {
 }
 
 public enum Ordering {
-    case Ascending
-    case Descending
+    case ascending
+    case descending
 }
