@@ -33,7 +33,7 @@ public extension Sequence where Self.Iterator.Element == NSSortDescriptor {
   - returns: the generated compare function
   */
   func toCompareFunction<T: AnyObject>() -> ((T, T) -> Bool) {
-    let compareFunctions: [(T, T) -> Bool] = map { a in a.toCompareFunction() }
+    let compareFunctions: [(T, T) -> Bool] = map { $0.toCompareFunction() }
     return compareFunctions.reduce(identityCompareFunction(), combineCompareFunctions)
   }
   

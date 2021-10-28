@@ -7,7 +7,7 @@
 
 ## Motivation
 
-This library takes a shot at making sorting in Swift more pleasant. It also allows you to reuse your old `NSSortDescriptor` instances in Swift.
+This library takes a shot at making comparing and sorting in Swift more pleasant. It also allows you to reuse your old `NSSortDescriptor` instances in Swift.
 
 ## Examples
 
@@ -15,26 +15,31 @@ This library takes a shot at making sorting in Swift more pleasant. It also allo
 let somePeople: [Person] = ...
 
 // Sort by a comparable attribute
-let ... = somePeople.sort(sortingBy { $0.firstname })
+let ... = somePeople.sort(by: compareBy { $0.firstname })
+let ... = somePeople.sort(by: compareBy(\.firstname))
+let ... = somePeople.sort(by: compareBy(.descending, \.firstname))
+let ... = somePeople.sort(byComparing: \.firstname)
+let ... = somePeople.sort(byComparing: \.firstname, ordering: .descending)
 
 // Sort by multiple attributes
-let ... = somePeople.sort(
-  sortingBy { $0.age } <|>
-  sortingBy { $0.lastname } <|>
-  sortingBy { $0.firstname }
+let ... = somePeople.sort(by:
+  compareBy { $0.age } <|>
+  compareBy { $0.lastname } <|>
+  compareBy(\.firstname)
 )
+let ... = somePeople.sort(byComparing: [\.age, \.firstname, \.lastname])
 
 // Append any comparator function
 let ... = somePeople.sort(
-  sortingBy { $0.age } <|>
+  compareBy { $0.age } <|>
   { (p1, p2) in p1.wearsGlasses() && !p2.wearsGlasses() }
 )
 
 // Reverse compare functions
 let ... = somePeople.sort(
-  sortingBy(.descending) { $0.age } <|>
-  sortingBy { $0.lastname } <|>
-  reverseComparator(sortingBy { $0.firstname }) // reverse any compare function
+  compareBy(.descending) { $0.age } <|>
+  compareBy { $0.lastname } <|>
+  reverseComparator(compareBy(\.firstname)) // reverse any compare function
 )
 
 // Use an NSSortDescriptor
@@ -59,11 +64,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ### Swift Version
 
-This Version of SwiftSortUtils is meant to be used with Swift 3.0
-
-For older Swift versions:
-
-* Swift 2.3 -> Use 0.2.0
+This Version of SwiftSortUtils is meant to be used with Swift 5.
 
 ### CocoaPods
 

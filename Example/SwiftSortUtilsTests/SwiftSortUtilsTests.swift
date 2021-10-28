@@ -22,8 +22,8 @@ func ==(lhs: Point, rhs: Point) -> Bool {
 }
 
 class FullName: NSObject {
-    var firstName: String
-    var lastName: String
+    @objc var firstName: String
+    @objc var lastName: String
     
     required init(firstName: String, lastName: String) {
         self.firstName = firstName
@@ -37,32 +37,56 @@ class Tests: XCTestCase {
     
     func testCombinedComparatorFunctions() {
         let testArray = (0..<1000).map { _ in randomPoint() }
-        let testee = testArray.sorted(by: sortingBy { $0.x } <|> sortingBy{ $0.y })
-        
-        for i in 1..<testee.count {
-            let a = testee[i - 1]
-            let b = testee[i]
-            
-            XCTAssert(a.x <= b.x)
-            if (a.x == b.x) {
-                XCTAssert(a.y <= b.y)
-            }
-        }
+        let testee = testArray.sorted(by: compareBy { $0.x } <|> compareBy{ $0.y })
+        assertSorted(points: testee, ordering: .ascending)
     }
     
     func testCombinedReversedComparatorFunctions() {
         let testArray = (0..<1000).map { _ in randomPoint() }
-        let testee = testArray.sorted(by: sortingBy(.descending) { $0.x } <|> sortingBy(.descending) { $0.y })
-        
-        for i in 1..<testee.count {
-            let a = testee[i - 1]
-            let b = testee[i]
-            
-            XCTAssert(a.x >= b.x)
-            if (a.x == b.x) {
-                XCTAssert(a.y >= b.y)
-            }
-        }
+        let testee = testArray.sorted(by: compareBy(.descending) { $0.x } <|> compareBy(.descending) { $0.y })
+        assertSorted(points: testee, ordering: .descending)
+    }
+    
+    func testCombinedArrayComparator() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(by: compareBy([{ $0.x }, { $0.y }]))
+        assertSorted(points: testee, ordering: .ascending)
+    }
+    
+    func testCombinedKeyPaths() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(by: compareBy([\.x, \.y]))
+        assertSorted(points: testee, ordering: .ascending)
+    }
+    
+    func testCombinedKeyPathsReversed() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(by: compareBy(.descending, [\.x, \.y]))
+        assertSorted(points: testee, ordering: .descending)
+    }
+    
+    func testSortByComparing() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(byComparing: [\.x, \.y])
+        assertSorted(points: testee, ordering: .ascending)
+    }
+    
+    func testSortByComparingReversed() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(byComparing: [\.x, \.y], ordering: .descending)
+        assertSorted(points: testee, ordering: .descending)
+    }
+    
+    func testSortByComparingSingle() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(byComparing: \.x)
+        XCTAssertEqual(testee, testArray.sorted(by: { $0.x < $1.x }))
+    }
+    
+    func testSortByComparingSingleReversed() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(byComparing: \.y, ordering: .descending)
+        XCTAssertEqual(testee, testArray.sorted(by: { $0.y > $1.y }))
     }
     
     func testSortDescriptorCompareFunction() {
@@ -80,6 +104,28 @@ class Tests: XCTestCase {
             let testeeName = testee[i]
             
             XCTAssert(expectedName.firstName == testeeName.firstName && expectedName.lastName == testeeName.lastName)
+        }
+    }
+    
+    // MARK: Assertion
+    
+    func assertSorted(points: [Point], ordering: Ordering) {
+        for i in 1..<points.count {
+            let a = points[i - 1]
+            let b = points[i]
+            
+            switch ordering {
+            case .ascending:
+                XCTAssert(a.x <= b.x)
+                if (a.x == b.x) {
+                    XCTAssert(a.y <= b.y)
+                }
+            case .descending:
+                XCTAssert(a.x >= b.x)
+                if (a.x == b.x) {
+                    XCTAssert(a.y >= b.y)
+                }
+            }
         }
     }
     

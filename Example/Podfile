@@ -1,7 +1,8 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
+platform :ios, '9.0'
+
 target 'SwiftSortUtilsTests' do
   pod "SwiftSortUtils", :path => "../"
-
 end

@@ -1,16 +1,16 @@
 PODS:
-  - SwiftSortUtils (0.2.0)
+  - SwiftSortUtils (0.4.0)
 
 DEPENDENCIES:
   - SwiftSortUtils (from `../`)
 
 EXTERNAL SOURCES:
   SwiftSortUtils:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  SwiftSortUtils: d477b23ddcb015ff1559adb4b63b7ab945f0de7a
+  SwiftSortUtils: a155c1aaf029348c058bab90509e9cedbe72c40c
 
-PODFILE CHECKSUM: ff63530edab8c2b568889e14d377e3de552e2ab1
+PODFILE CHECKSUM: f782d16a7b742530805b5d278933c4d7f425cf56
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.10.1
