@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SwiftSortUtils"
-  s.version          = "0.4.0"
+  s.version          = "0.5.0"
   s.summary          = "Useful functions and extensions for sorting in Swift"
 
   s.description      = <<-DESC
