@@ -27,7 +27,8 @@ let ... = somePeople.sort(by:
   compareBy { $0.lastname } <|>
   compareBy(\.firstname)
 )
-let ... = somePeople.sort(byComparing: [\.age, \.firstname, \.lastname])
+
+let ... = somePeople.sort(byComparing: [\.firstname, \.lastname])
 
 // Append any comparator function
 let ... = somePeople.sort(
