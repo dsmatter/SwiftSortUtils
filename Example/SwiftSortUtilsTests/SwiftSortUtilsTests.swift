@@ -65,6 +65,20 @@ class Tests: XCTestCase {
         assertSorted(points: testee, ordering: .descending)
     }
     
+    func testTransformerChain() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(by: \.x <|> \.y <|> \.x)
+        assertSorted(points: testee, ordering: .ascending)
+    }
+    
+    func testMixedSyntax() {
+        let testArray = (0..<1000).map { _ in randomPoint() }
+        let testee = testArray.sorted(
+            by: compareBy(.ascending, \.x) <|> \.y <|> reverseComparator(compareBy(.descending, { $0.x }))
+        )
+        assertSorted(points: testee, ordering: .ascending)
+    }
+    
     func testSortByComparing() {
         let testArray = (0..<1000).map { _ in randomPoint() }
         let testee = testArray.sorted(byComparing: [\.x, \.y])

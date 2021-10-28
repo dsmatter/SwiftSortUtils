@@ -32,10 +32,27 @@ precedencegroup CompareFunctionCompositionPrecedence {
     associativity: left
 }
 infix operator <|>: CompareFunctionCompositionPrecedence
-public func <|><T>(f: @escaping (T, T) -> Bool, g: @escaping (T, T) -> Bool) -> ((T, T) -> Bool) {
+
+public func <|><T>(
+    f: @escaping (T, T) -> Bool,
+    g: @escaping (T, T) -> Bool
+) -> ((T, T) -> Bool) {
     return combineCompareFunctions(f, g)
 }
 
+public func <|><T, C: Comparable>(
+    _ cf: @escaping (T, T) -> Bool,
+    _ f: @escaping (T) -> C
+) -> ((T, T) -> Bool) {
+    return cf <|> compareBy(f)
+}
+
+public func <|><T, C1: Comparable, C2: Comparable>(
+    _ f: @escaping (T) -> C1,
+    _ g: @escaping (T) -> C2
+) -> ((T, T) -> Bool) {
+    return compareBy(f) <|> g
+}
 
 /**
  Generates a compare function (suitable for Swift Arrays' sort methods)

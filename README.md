@@ -14,9 +14,9 @@ This library takes a shot at making comparing and sorting in Swift more pleasant
 ```swift
 let somePeople: [Person] = ...
 
-// Sort by a comparable attribute
-let ... = somePeople.sort(by: compareBy { $0.firstname })
+// Sort by a single comparable attribute
 let ... = somePeople.sort(by: compareBy(\.firstname))
+let ... = somePeople.sort(by: compareBy { $0.firstname })
 let ... = somePeople.sort(by: compareBy(.descending, \.firstname))
 let ... = somePeople.sort(byComparing: \.firstname)
 let ... = somePeople.sort(byComparing: \.firstname, ordering: .descending)
@@ -28,19 +28,29 @@ let ... = somePeople.sort(by:
   compareBy(\.firstname)
 )
 
-let ... = somePeople.sort(byComparing: [\.firstname, \.lastname])
+// With less cumbersome syntax:
+let ... = somePeople.sort(by: \.age <|> \.firstname <|> \.lastname)
+let ... = somePeople.sort(byComparing: [\.firstname, \.lastname]) // monomorphic
 
 // Append any comparator function
-let ... = somePeople.sort(
+let ... = somePeople.sort(by:
   compareBy { $0.age } <|>
   { (p1, p2) in p1.wearsGlasses() && !p2.wearsGlasses() }
 )
 
 // Reverse compare functions
-let ... = somePeople.sort(
+let ... = somePeople.sort(by:
   compareBy(.descending) { $0.age } <|>
   compareBy { $0.lastname } <|>
   reverseComparator(compareBy(\.firstname)) // reverse any compare function
+)
+
+// Mix and match extractor and compare functions:
+let ... = somePeople.sort(by:
+  compareBy(.descending, \.age) <|>
+  \.firstname <|>
+  \.lastname <|>
+  reverseComparator(myCompareFunction)
 )
 
 // Use an NSSortDescriptor
@@ -52,7 +62,7 @@ let nameSortDescriptors = [
   NSSortDescriptor(key: "lastname", ascending: true),
   NSSortDescriptor(key: "firstname", ascending: true)
 ]
-let ... = somePeople.sort(nameSortDescriptors.toCompareFunction())
+let ... = somePeople.sort(by: nameSortDescriptors.toCompareFunction())
 ```
 
 See the tests for more examples.
